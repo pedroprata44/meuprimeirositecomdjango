@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 
 from eventex.subscriptions.forms import SubscriptionForm
+from eventex.subscriptions.models import Subscription
 
 def subscribe(request):
 
@@ -28,6 +29,7 @@ def create(request):
                'subscriptions/subscription_email.txt',
                form.cleaned_data)
     
+    Subscription.objects.create(**form.cleaned_data)
     #Sucess Feedback
     messages.success(request,'Inscrição realizada com sucesso!')
 
