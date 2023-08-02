@@ -21,6 +21,13 @@ class SubscriptionFormTest(TestCase):
         form = self.make_validated_form(cpf=1234)
 
         self.assertErrorCode(form, 'cpf', 'lenght')
+    
+    def test_must_be_captalize(self):
+        ''' Name must be captalized '''
+        #HENRIQUE Bastos -> Henrique Bastos
+
+        form = self.make_validated_form(name='HENRIQUE Bastos')
+        self.assertEqual('Henrique Bastos', form.cleaned_data['name'])
 
     def assertErrorCode(self, form, field, code):    
         errors = form.errors.as_data()

@@ -5,8 +5,8 @@ from django.core import mail
 
 class SubscribePostValid(TestCase):
     def setUp(self) -> None:
-        data = dict(name='Pedro Prata',
-                     cpf='46890347889', email='contato.pedroprata@gmail.com', phone='17981107024')
+        data = dict(name='Henrique Bastos',
+                     cpf='12345678901', email='henrique@bastos.net', phone='21-996186180')
         
         self.response = self.client.post(r('subscriptions:new'), data)
         self.email = mail.outbox[0]
@@ -23,16 +23,16 @@ class SubscribePostValid(TestCase):
         self.assertEqual(expect,self.email.from_email)
     
     def test_subscription_email_to(self):
-        expect = ['contato@eventex.com.br', 'contato.pedroprata@gmail.com']
+        expect = ['contato@eventex.com.br', 'henrique@bastos.net']
         
         self.assertEqual(expect,self.email.to)
     
     def test_email_body(self):
 
-        contents = ['Pedro Prata',
-                    '46890347889',
-                    'contato.pedroprata@gmail.com',
-                    '17981107024']
+        contents = ['Henrique Bastos',
+                    '12345678901',
+                    'henrique@bastos.net',
+                    '21-996186180']
 
         for content in contents:
 
